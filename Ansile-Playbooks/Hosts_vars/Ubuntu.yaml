@@ -1,13 +1,7 @@
 ---
 - name: install java on ubuntu 
-  hosts: all
+  hosts: ubuntu
   become: yes
-  vars:
-   java_package: openjdk-11-jdk
-   group_package: tomcat
-   user_package: tomcat
-   home_dir: /opt/tomcat
-   default_shell: /bin/false
   tasks:
    - name: update packages and install ubuntu
      ansible.builtin.apt:
@@ -26,5 +20,10 @@
        home: "{{ home_dir }}"
        shell: "{{ default_shell }}"
        state: present
-      #  wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.tar.gz -P /tmp
+   - name: downloading tomcat on ubuntu
+     ansible.builtin.get_url:
+       url: "https://archive.apache.org/dist/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}tar.gz"
+       dest: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
+     
+      # "this is tomcat downloading Link:- wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.tar.gz -P /tmp"
 
