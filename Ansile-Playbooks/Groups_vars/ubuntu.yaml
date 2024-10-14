@@ -1,5 +1,6 @@
-java_package: openjdk-11-jdk
-group_package: tomcat
-user_package: tomcat
-home_dir: /opt/tomcat
-default_shell: /bin/false
+ java_package: openjdk-11-jdk
+   group_package: tomcat
+   user_package: tomcat
+   home_dir: /opt/tomcat
+   default_shell: /bin/false
+   tomcat_version: '10.1.14'
