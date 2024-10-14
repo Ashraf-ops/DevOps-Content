@@ -26,4 +26,3 @@
        dest: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
      
       # "this is tomcat downloading Link:- wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.tar.gz -P /tmp"
-
