@@ -2,21 +2,29 @@
 - name: install java on ubuntu 
   hosts: all
   become: yes
+  vars:
+   java_package: openjdk-11-jdk
+   group_package: tomcat
+   user_package: tomcat
+   home_dir: /opt/tomcat
+   default_shell: /bin/false
   tasks:
    - name: update packages and install ubuntu
      ansible.builtin.apt:
-       name: openjdk-11-jdk
+       name: "{{ java_package }}"
        update_cache: yes
        state: present
    - name: create a group tomcat
      ansible.builtin.group:
-       name: tomact
+       name: "{{ group_package }}"
        state: present
    - name: create user tomcat
      ansible.builtin.user:
-       name: tomcat
+       name: "{{ user_package }}"
        create_home: true
-       group: tomcat
-       home: /opt/tomcat
-       shell: /bin/false
+       group: "{{ group_package }}"
+       home: "{{ home_dir }}"
+       shell: "{{ default_shell }}"
        state: present
+      #  wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.tar.gz -P /tmp
+
