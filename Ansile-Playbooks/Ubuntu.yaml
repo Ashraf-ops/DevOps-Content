@@ -19,3 +19,4 @@
        group: tomcat
        home: /opt/tomcat
        shell: /bin/bash
+       state: present
