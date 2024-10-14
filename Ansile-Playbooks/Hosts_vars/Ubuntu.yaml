@@ -1,6 +1,6 @@
 ---
 - name: install java on ubuntu 
-  hosts: ubuntu
+  hosts: all
   become: yes
   tasks:
    - name: update packages and install ubuntu
