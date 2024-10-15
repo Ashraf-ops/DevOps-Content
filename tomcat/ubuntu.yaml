@@ -22,7 +22,7 @@
        state: present
    - name: downloading tomcat on ubuntu
      ansible.builtin.get_url:
-       url: " https://archive.apache.org/dist/tomcat/tomcat-10/v{{ tomcat_version }} /bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+       url: " https://downloads.apache.org/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
        dest: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
      
-      # "this is tomcat downloading Link:- wget  https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.tar.gz"
+      # "this is tomcat downloading Link:- "wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.31/bin/apache-tomcat-10.1.31.tar.gz" 
