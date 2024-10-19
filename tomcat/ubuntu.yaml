@@ -68,6 +68,6 @@
         src: hostmanager-context.xml
         dest: "{{ home_dir }}/latest/webapps/host-manager/META-INF/context.xml"
     - name: restart tomcat
-     ansible.builtin.systemd:
+      ansible.builtin.systemd:
         name: tomcat.service
         state: restarted
