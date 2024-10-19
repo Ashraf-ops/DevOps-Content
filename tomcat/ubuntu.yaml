@@ -27,9 +27,9 @@
        remote_src: yes
       # "this is tomcat downloading Link:- "wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.31/bin/apache-tomcat-10.1.31.tar.gz"
    - name: Create a symbolic link
-    ansible.builtin.file:
+     ansible.builtin.file:
        src: "{{ home_dir }}/apache-tomcat-{{ tomcat_version }}"
-      dest: "{{ home_dir }}/latest"
-      owner: "{{ user_package }}" 
-      group: "{{ group_package }}"
-      state: link 
+       dest: "{{ home_dir }}/latest"
+       owner: "{{ user_package }}" 
+       group: "{{ group_package }}"
+       state: link 
