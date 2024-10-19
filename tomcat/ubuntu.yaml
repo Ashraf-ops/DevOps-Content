@@ -62,7 +62,7 @@
    - name: add manager context
      ansible.builtin.copy:
         src: manager-context.xml
-        dest: "{{ home_dir }}/opt/tomcat/latest/webapps/manager/META-INF/context.xml"
+        dest: "{{ home_dir }}/latest/webapps/manager/META-INF/context.xml"
    - name: add hostmanager-context
      ansible.builtin.copy:
         src: hostmanager-context.xml
