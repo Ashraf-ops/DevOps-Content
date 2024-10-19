@@ -55,5 +55,19 @@
         name: tomcat.service
         enabled: yes
         state: started
-
-    
+   - name: add tomcat users
+     ansible.builtin.copy: 
+        src: tomcat-users.xml
+        dest: "{{ home_dir }}/latest/conf/tomcat-users.xml"
+   - name: add manager context
+     ansible.builtin.copy:
+        src: manager-context.xml
+        dest: "{{ home_dir }}/opt/tomcat/latest/webapps/manager/META-INF/context.xml"
+   - name: add hostmanager-context
+     ansible.builtin.copy:
+        src: hostmanager-context.xml
+        dest: "{{ home_dir }}/latest/webapps/host-manager/META-INF/context.xml"
+    - name: restart tomcat
+     ansible.builtin.systemd:
+        name: tomcat.service
+        state: restarted
