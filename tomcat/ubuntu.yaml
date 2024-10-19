@@ -24,6 +24,8 @@
      ansible.builtin.unarchive:
        src: "https://downloads.apache.org/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
        dest: "{{ home_dir }}"
+       owner: "{{ user_package }}" 
+       group: "{{ group_package }}"
        remote_src: yes
       # "this is tomcat downloading Link:- "wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.31/bin/apache-tomcat-10.1.31.tar.gz"
    - name: Create a symbolic link
