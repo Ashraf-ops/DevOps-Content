@@ -40,3 +40,7 @@
         recurse: yes
         owner: "{{ user_package }}" 
         group: "{{ group_package }}"
+   - name: give exicute permission to shell file
+     ansible.builtin.shell:
+        cmd: "chmod +x /opt/tomcat/latest/bin/*.sh"
+        executable: "/bin/bash"
