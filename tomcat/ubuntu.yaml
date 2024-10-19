@@ -51,7 +51,7 @@
         src: tomcat.service
         dest: /etc/systemd/system/tomcat.service
    - name: enable and start tomcat
-     ansible.builtin.systemd:
+     ansible.builtin.systemd_service:
         name: start tomcat.service
         enable: true
         state: started
