@@ -48,7 +48,7 @@
         executable: "/bin/bash"
    - name: create a service file
      ansible.builtin.copy:
-        src: tomcat,service
+        src: tomcat.service
         dest: /etc/systemd/system/tomcat.service
    - name: enable and start tomcat
      ansible.builtin.systemd:
