@@ -73,6 +73,7 @@
         dest: "{{ home_dir }}/latest/webapps/host-manager/META-INF/context.xml"
      notify:
      - Restart apache
+     
   handlers:
     - name: restart tomcat
       ansible.builtin.systemd:
