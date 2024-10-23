@@ -1,80 +1,79 @@
 ---
-- name: install java on ubuntu 
+- name: install tomcat 10 on ubuntu
   hosts: ubuntu
   become: yes
   tasks:
-   - name: update packages and install ubuntu
-     ansible.builtin.apt:
-       name: "{{ java_package }}"
-       update_cache: yes
-       state: present
-   - name: create a group tomcat
-     ansible.builtin.group:
-       name: "{{ group_package }}"
-       state: present
-   - name: create user tomcat
-     ansible.builtin.user:
-       name: "{{ user_package }}"
-       create_home: true
-       group: "{{ group_package }}"
-       home: "{{ home_dir }}"
-       shell: "{{ default_shell }}"
-       state: present
-   - name: download tomcat and unarchive tomcat
-     ansible.builtin.unarchive:
-       src: "https://downloads.apache.org/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
-       dest: "{{ home_dir }}"
-       owner: "{{ user_package }}" 
-       group: "{{ group_package }}"
-       remote_src: yes
-      # "this is tomcat downloading Link:- "wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.31/bin/apache-tomcat-10.1.31.tar.gz"
-   - name: Create a symbolic link
-     ansible.builtin.file:
-       src: "{{ home_dir }}/apache-tomcat-{{ tomcat_version }}"
-       dest: "{{ home_dir }}/latest"
-       owner: "{{ user_package }}" 
-       group: "{{ group_package }}"
-       state: link 
-   - name: change ownership of a directory
-     ansible.builtin.file:
+    - name: update packages and install java
+      ansible.builtin.apt:
+        name: "{{ java_package }}"
+        update_cache: yes
+        state: present
+    - name: create a group tomcat
+      ansible.builtin.group:
+        name: "{{ group_name }}"
+        state: present
+    - name: create a system user tomcat
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        create_home: true
+        group: "{{ group_name }}"
+        home: "{{ home_dir }}"
+        shell: "{{ default_shell }}"
+        state: present
+    - name: download and extract tomcat
+      ansible.builtin.unarchive:
+        src: "https://www-eu.apache.org/dist/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        dest: "{{ home_dir }}"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+        remote_src: yes
+    - name: create a symbolic link
+      ansible.builtin.file:
+        src: "{{ home_dir }}/apache-tomcat-{{ tomcat_version }}"
+        dest: "{{ home_dir }}/latest"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+        state: link
+    - name: change ownership of the directory
+      ansible.builtin.file:
         path: "{{ home_dir }}"
         state: directory
         recurse: yes
-        owner: "{{ user_package }}" 
-        group: "{{ group_package }}"
-   - name: give exicute permission to shell file
-     ansible.builtin.shell:
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+    - name: give execute permissions to shell files
+      ansible.builtin.shell:
         cmd: "chmod +x /opt/tomcat/latest/bin/*.sh"
         executable: "/bin/bash"
-   - name: create a service file
-     ansible.builtin.copy:
+    - name: create a service file
+      ansible.builtin.copy:
         src: tomcat.service
         dest: /etc/systemd/system/tomcat.service
-   - name: enable and start tomcat
-     ansible.builtin.systemd:
+    - name: enable and start tomcat
+      ansible.builtin.systemd:
         name: tomcat.service
         enabled: yes
         state: started
-   - name: add tomcat users
-     ansible.builtin.copy: 
+    - name: update users
+      ansible.builtin.copy:
         src: tomcat-users.xml
         dest: "{{ home_dir }}/latest/conf/tomcat-users.xml"
-     notify:
-      - Restart tomcat
-   - name: add manager context
-     ansible.builtin.copy:
+      notify:
+        - restart tomcat
+    - name: update manager context
+      ansible.builtin.copy:
         src: manager-context.xml
         dest: "{{ home_dir }}/latest/webapps/manager/META-INF/context.xml"
-     notify:
-      - Restart tomcat
-   - name: add hostmanager-context
-     ansible.builtin.copy:
+      notify:
+        - restart tomcat
+    - name: update host manager context
+      ansible.builtin.copy:
         src: hostmanager-context.xml
         dest: "{{ home_dir }}/latest/webapps/host-manager/META-INF/context.xml"
-     notify:
-     - Restart tomcat
+      notify:
+        - restart tomcat
   handlers:
     - name: restart tomcat
       ansible.builtin.systemd:
-         name: tomcat.service
-         state: restarted
+        name: tomcat.service
+        state: restarted
