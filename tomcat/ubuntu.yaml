@@ -61,12 +61,14 @@
         dest: "{{ home_dir }}/latest/conf/tomcat-users.xml"
      notify:
       - Restart apache
+
    - name: add manager context
      ansible.builtin.copy:
         src: manager-context.xml
         dest: "{{ home_dir }}/latest/webapps/manager/META-INF/context.xml"
      notify:
       - Restart apache
+
    - name: add hostmanager-context
      ansible.builtin.copy:
         src: hostmanager-context.xml
