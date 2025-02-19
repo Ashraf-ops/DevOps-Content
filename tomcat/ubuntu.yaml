@@ -21,7 +21,7 @@
         shell: "{{ default_shell }}"
         state: present
      - name: download and extract tomcat
-      ansible.builtin.unarchive:
+       ansible.builtin.unarchive:
         src: "https://dlcdn.apache.org/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
         dest: "{{ home_dir }}"
         owner: "{{ user_name }}"
