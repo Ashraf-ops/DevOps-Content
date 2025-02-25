@@ -34,6 +34,9 @@
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
         remote_src: yes
+      when: store_tomcat_stats.stat.exists == "false"
+      notify:
+        - give execute permissions to shell files
     - name: create a symbolic link
       ansible.builtin.file:
         src: "{{ home_dir }}/apache-tomcat-{{ tomcat_version }}"
@@ -48,10 +51,6 @@
         recurse: yes
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-    - name: give execute permissions to shell files
-      ansible.builtin.shell:
-        cmd: "chmod +x /opt/tomcat/latest/bin/*.sh"
-        executable: "/bin/bash"
     - name: create a service file
       ansible.builtin.copy:
         src: tomcat.service
@@ -84,3 +83,7 @@
       ansible.builtin.systemd:
         name: tomcat.service
         state: restarted
+    - name: give execute permissions to shell files
+      ansible.builtin.shell:
+        cmd: "chmod +x /opt/tomcat/latest/bin/*.sh"
+        executable: "/bin/bash"
