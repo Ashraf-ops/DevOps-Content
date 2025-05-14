@@ -26,7 +26,7 @@
       register: store_tomcat_stats
     - name: print
       debug: 
-        var: store_tomcat_stats.stat.exists
+        var: store_tomcat_stats
     - name: download and extract tomcat
       ansible.builtin.unarchive:
         src: "https://dlcdn.apache.org/tomcat/tomcat-10/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
