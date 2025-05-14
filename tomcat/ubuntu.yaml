@@ -34,7 +34,7 @@
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
         remote_src: yes
-      when: store_tomcat_stats.stat.exists == "true"
+      when: store_tomcat_stats.stat.exists == "false"
       notify:
         - give execute permissions to shell files
     - name: create a symbolic link
