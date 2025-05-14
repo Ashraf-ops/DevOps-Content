@@ -3,6 +3,10 @@
   hosts: ubuntu
   become: yes
   tasks:
+    - name: pop fail message when os is changed
+      ansible.builtin.fail:
+        msg: not using correct distribution
+      when: ansible_facts ['distribution'] != 'Ubuntu'
     - name: update packages and install java
       ansible.builtin.apt:
         name: "{{ java_package }}"
