@@ -6,7 +6,7 @@
     - name: pop fail message when os is changed
       ansible.builtin.fail:
         msg: not using correct distribution
-      when: ansible_facts ['distribution'] != 'Ubuntu'
+      when: ansible_facts ['distribution'] != 'redhat'
     - name: update packages and install java
       ansible.builtin.apt:
         name: "{{ java_package }}"
