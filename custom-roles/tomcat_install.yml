@@ -1,6 +1,6 @@
 ---
 - name: install tomcat on localhost
   become: yes
-  hosts: webserver
+  hosts: appserver
   roles:
    - role: tomcat
