@@ -57,9 +57,11 @@
   ansible.builtin.template:
     src: tomcat.service.j2
     dest: /etc/systemd/system/tomcat.service
+  notify:
+    - restart tomcat
 - name: enable and start tomcat
   ansible.builtin.systemd:
-    name: tomcat.service.j2
+    name: tomcat.service
     enabled: yes
     state: started
 - name: update users, manager context, manager-context.xml configuration
