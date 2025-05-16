@@ -1,0 +1,6 @@
+java_package: java-11-openjdk-devel
+group_package: tomcat
+user_package: tomcat
+home_dir: /opt/tomcat
+default_shell: /bin/false
+tomcat_version: "10.1.31"
