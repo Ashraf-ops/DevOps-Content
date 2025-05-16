@@ -59,7 +59,7 @@
     dest: /etc/systemd/system/tomcat.service
 - name: enable and start tomcat
   ansible.builtin.systemd:
-    name: tomcat.service
+    name: tomcat.service.j2
     enabled: yes
     state: started
 - name: update users, manager context, manager-context.xml configuration
