@@ -6,6 +6,6 @@ group_name: tomcat
 user_name: tomcat
 home_dir: /opt/tomcat
 default_shell: /bin/false
-tomcat_version: "10.1.26"
+tomcat_version: "10.1.41"
 java_home: /usr/lib/jvm/java-11-openjdk-amd64
 
